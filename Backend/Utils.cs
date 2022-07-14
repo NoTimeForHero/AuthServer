@@ -47,7 +47,7 @@ namespace AuthServer
                 select scheme).ToArray();
         }
 
-        public static UserInfo? GetInformation(this ClaimsPrincipal claimsPrincipal)
+        public static AuthUserInfo? GetInformation(this ClaimsPrincipal claimsPrincipal)
         {
             var idType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
             var nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
@@ -56,7 +56,7 @@ namespace AuthServer
             var provider = claim.Subject?.AuthenticationType;
             if (provider == null) return null;
             var name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == nameType)?.Value;
-            return new UserInfo { Provider = provider, Id = claim.Value, DisplayName = name };
+            return new AuthUserInfo { Provider = provider, Id = claim.Value, DisplayName = name };
         }
     }
 }

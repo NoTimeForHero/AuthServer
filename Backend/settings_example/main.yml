@@ -9,3 +9,20 @@ Providers:
   GitHub:
     ClientId: github_app_id
     ClientSecret: github_app_id
+Users:
+  user1:
+    DisplayName: 'User #1'
+Groups:
+  Users:
+    - user
+Applications:
+  appId:
+    Title: Application name
+    BaseURL: http://example.org
+    RedirectURLS:
+      # You must pass token directly via {0}
+      - http://example.org?token={0}
+      - http://example.org#token={0}
+    Access:
+      - Users # Group
+      - user1 # Specific user

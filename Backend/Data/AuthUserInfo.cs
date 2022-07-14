@@ -1,6 +1,6 @@
 ﻿namespace AuthServer.Data
 {
-    public class UserInfo
+    public class AuthUserInfo
     {
         public string Provider { get; set; } = "";
         public string Id { get; set; } = "";
