@@ -1,15 +1,13 @@
 import { FC } from 'preact/compat';
-import { Size, StyleType } from '../types';
+import { SimpleProps, format, Size } from '../types';
 
 
-interface ContainerProps {
-  style?: StyleType,
-  className?: string,
+interface ContainerProps extends SimpleProps {
   size?: Size
 }
 
 const Container : FC<ContainerProps> = (props) => {
-  const size = props.size ? `container-${props.size}` : 'container';
+  const size = format(props.size, 'container', 'container');
   return <div className={`${size} ${props.className??''}`} style={props.style}>{props.children}</div>
 }
 

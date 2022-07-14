@@ -1,4 +1,10 @@
 ﻿---
+Brand:
+  Name: Example Brand
+  Logotype: https://www.gstatic.com/webp/gallery/1.jpg
+  Size:
+    X: 300
+    Y: 150
 Providers:
   GitHub:
     ClientId: github_app_id

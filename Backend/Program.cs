@@ -14,6 +14,7 @@ var config = Utils.Deserialize<Config>(File.ReadAllText("settings/main.yml"));
 // Add services to the container.
 var services = builder.Services;
 
+services.AddSingleton(config);
 services.AddRouting();
 
 var auth = services.AddAuthentication((options) =>

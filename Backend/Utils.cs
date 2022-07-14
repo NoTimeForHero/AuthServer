@@ -1,6 +1,7 @@
 ﻿using System.Dynamic;
 using System.Security.Claims;
 using AspNet.Security.OAuth.MailRu;
+using AuthServer.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using YamlDotNet.Serialization;

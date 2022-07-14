@@ -1,9 +1,13 @@
 import LoginButtons from './LoginButtons';
 import Container from '../bootstrap/components/Container';
+import { LoadWrapper } from './GlobalData';
 
 const App = () => {
+
   return <Container size={'xl'} className={"flex-center"}>
-    <LoginButtons />
+    <LoadWrapper>
+      <LoginButtons />
+    </LoadWrapper>
   </Container>
 }
 

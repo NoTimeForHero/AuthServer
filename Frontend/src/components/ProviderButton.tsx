@@ -4,16 +4,20 @@ import x from './ProviderButton.module.css';
 
 interface ButtonProps {
   user?: string,
-  company: Company
+  company: Company,
+  onClick?: (ev: JSX.TargetedMouseEvent<HTMLDivElement>) => void,
 }
 
 const ProviderButton : FC<ButtonProps> = (props) => {
   const { company, user } = props;
-  return <div className={`btn btn-outline-primary btn-sm ${x.button}`}>
-    <img src={company.icon} className={x.icon} />
+  const [icon,title] = company;
+  const onClick = props.onClick ?? (() => {});
+  return <div onClick={onClick}
+    className={`btn btn-outline-primary btn-sm ${x.button}`}>
+    <img src={icon} className={x.icon} alt="" />
     <div className={x.title}>
       <span>{user ? '' : 'Войти через'}   </span>
-      <span className="name">{user ?? company.title}</span>
+      <span className="name">{user ?? title}</span>
     </div>
   </div>
 }

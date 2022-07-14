@@ -4,8 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.Controllers
 {
-    public class MainController : ControllerBase
+    public class MainController : Controller
     {
+        private Config config;
+
+        public MainController(Config config)
+        {
+            this.config = config;
+        }
+
+
         public object Get()
         {
             return new { Message = "Hello world!" };
@@ -35,7 +43,8 @@ namespace AuthServer.Controllers
                 (await HttpContext.GetExternalProvidersAsync())
                 .Select(x => x.DisplayName);
             var user = User.GetInformation();
-            return new { providers, user };
+            var brand = config.Brand;
+            return new { brand, user, providers };
         }
 
         [HttpGet("api/info")]
