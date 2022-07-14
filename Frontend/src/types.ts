@@ -1,6 +1,9 @@
 
-export interface ExtendedWindow extends Window {
-  settings?: Settings
+export interface Claim {
+  type: string,
+  value: string,
+  valueType: string,
+  subject: string,
 }
 
 export interface Settings {

@@ -1,5 +1,5 @@
 import { useContext } from 'preact/compat';
-import { globalSettingsCtx } from '../store/GlobalData';
+import { globalSettingsCtx } from '../context/GlobalData';
 
 const Header = () => {
   const settings = useContext(globalSettingsCtx);
@@ -7,7 +7,6 @@ const Header = () => {
 
   if (brand.logotype) {
     const size = (brand.size) ? {width: brand.size.x, height: brand.size.y} : {};
-    console.warn(size, brand);
     return <img src={brand.logotype} style={size} alt={brand.name ?? ""} />;
   }
 

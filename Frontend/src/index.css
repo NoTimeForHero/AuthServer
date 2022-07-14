@@ -3,7 +3,7 @@ body {
 }
 
 html {
-  background: url("/images/hexellence.png");
+  background: url("/images/hexellence_yellow.png");
 }
 
 html, body, #app {
@@ -23,4 +23,12 @@ html, body, #app {
 
 .social-buttons-group .btn {
   margin: 3px 0;
+}
+
+.claims-table td, .claims-table tr {
+  margin: 20px !important;
+}
+
+.claims-table a {
+  text-decoration: none !important;
 }
