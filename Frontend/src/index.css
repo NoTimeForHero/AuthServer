@@ -1,0 +1,22 @@
+body {
+  background-color: unset !important;
+}
+
+html {
+  background: url("/images/hexellence.png");
+}
+
+html, body, #app {
+  height: 100%;
+}
+
+.flex-center {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-block {
+  width: 600px;
+}

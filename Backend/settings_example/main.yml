@@ -1,0 +1,5 @@
+﻿---
+Providers:
+  GitHub:
+    ClientId: github_app_id
+    ClientSecret: github_app_id
