@@ -2,7 +2,7 @@ import Card from '../bootstrap/components/Card';
 import ProviderButton from '../components/ProviderButton';
 import { Companies } from '../companies';
 import { FC, Fragment, useContext } from 'preact/compat';
-import { globalSettingsCtx } from './GlobalData';
+import { globalSettingsCtx } from '../store/GlobalData';
 import Header from '../components/Header';
 import { Settings } from '../types';
 
@@ -12,7 +12,12 @@ const ContinueBlock : FC<{settings?: Settings}> = (props) => {
   const company = Companies[user.provider];
   return <>
     <div className="text-center fw-bold mb-2">Продолжить как:</div>
-    <ProviderButton company={company} user={user.username} />
+    <div className="d-flex m-2">
+      <ProviderButton company={company} user={user} />
+      <div className="btn btn-sm btn-outline-info d-flex" title="Информация о пользователе">
+        <img src="/images/question-mark-svgrepo-com.svg" alt="?" width={32} />
+      </div>
+    </div>
     <hr />
   </>
 }
@@ -35,12 +40,14 @@ const LoginButtons = () => {
 
     <ContinueBlock settings={settings} />
 
-    {providers.map((name) =>
-      <ProviderButton
-        onClick={onLogin(name)}
-        company={Companies[name]}
-        key={name} />
-    )}
+    <div className="social-buttons-group">
+      {providers.map((name) =>
+        <ProviderButton
+          onClick={onLogin(name)}
+          company={Companies[name]}
+          key={name} />
+      )}
+    </div>
 
   </Card>
 }

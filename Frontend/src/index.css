@@ -20,3 +20,7 @@ html, body, #app {
 .login-block {
   width: 600px;
 }
+
+.social-buttons-group .btn {
+  margin: 3px 0;
+}

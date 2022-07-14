@@ -50,11 +50,13 @@ namespace AuthServer
         public static UserInfo? GetInformation(this ClaimsPrincipal claimsPrincipal)
         {
             var idType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
+            var nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
             var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == idType);
             if (claim == null) return null;
             var provider = claim.Subject?.AuthenticationType;
             if (provider == null) return null;
-            return new UserInfo { Provider = provider, Username = claim.Value };
+            var name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == nameType)?.Value;
+            return new UserInfo { Provider = provider, Id = claim.Value, DisplayName = name };
         }
     }
 }

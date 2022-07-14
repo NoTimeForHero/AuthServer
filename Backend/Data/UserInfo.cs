@@ -3,8 +3,9 @@
     public class UserInfo
     {
         public string Provider { get; set; } = "";
-        public string Username { get; set; } = "";
+        public string Id { get; set; } = "";
+        public string DisplayName { get; set; } = "";
 
-        public string Combined => Provider.ToLower() + "_" + Username.ToLower();
+        public string FullId => Provider.ToLower() + "_" + Id.ToLower();
     }
 }

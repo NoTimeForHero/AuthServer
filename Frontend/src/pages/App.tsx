@@ -1,6 +1,6 @@
 import LoginButtons from './LoginButtons';
 import Container from '../bootstrap/components/Container';
-import { LoadWrapper } from './GlobalData';
+import { LoadWrapper } from '../store/GlobalData';
 
 const App = () => {
 

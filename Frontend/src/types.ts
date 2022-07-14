@@ -17,6 +17,7 @@ export interface Brand {
 
 export interface User {
   provider: string,
-  username: string,
-  combined: string
+  id: string,
+  displayName: string,
+  fullId: string
 }

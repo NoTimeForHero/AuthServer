@@ -1,5 +1,5 @@
 import { useContext } from 'preact/compat';
-import { globalSettingsCtx } from '../pages/GlobalData';
+import { globalSettingsCtx } from '../store/GlobalData';
 
 const Header = () => {
   const settings = useContext(globalSettingsCtx);

@@ -5,3 +5,8 @@
 Проект предназначен для админок микро-сервисов, где один или несколько администраторов не меняются на протяжении долгого времени.\
 Эти сервисы часто никак не связаны между собой, и на этих сервисах нет механизма управления пользователями.\
 А вводить и запоминать пароли для Basic access authentication не всегда удобно.
+
+## Авторы
+Иконки компаний взяты с их официальных сайтов [Google](https://google.com), [GitHub](https://github.com), [Yandex](https://yandex.ru), [Mail.Ru](https://mail.ru).
+Иконки вопроса взята с [SVGrepo.com](https://www.svgrepo.com/svg/208288/question-mark-question)
+Иконка сайта взята с [icons8](https://icons8.com/icon/7uyDMYK6kMJr/login).
