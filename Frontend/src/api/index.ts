@@ -25,3 +25,8 @@ export const fetchAuthorize = (app: string, redirect?: string) => {
   if (redirect) params.set('redirect', redirect);
   return get<Authorize>(`/api/authorize?${params}`);
 }
+
+export const doLogin = (provider: string) => {
+  const redirect = encodeURIComponent(document.location.toString());
+  document.location = `/api/login?provider=${provider}&redirect=${redirect}`;
+}

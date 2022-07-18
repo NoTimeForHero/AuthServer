@@ -4,11 +4,11 @@ import { Companies } from '../../companies';
 import { FC, Fragment } from 'preact/compat';
 import Header from '../../components/Header';
 import { useAtom } from 'jotai';
-import { authorizeAtom, settingsAtom, useStatusBar } from '../../api/store';
+import { authorizeAtom, loadingAtom, settingsAtom, useStatusBar } from '../../api/store';
 import StatusBar from '../StatusBar';
 import ContinueBlock from './ContinueBlock';
 import { useMount } from '../../utils';
-import { fetchAuthorize } from '../../api';
+import { doLogin, fetchAuthorize } from '../../api';
 
 interface LoginButtonsProps {
   path?: string // Router
@@ -18,11 +18,14 @@ interface LoginButtonsProps {
 const Body = () => {
   const [settings] = useAtom(settingsAtom);
   const [authorize] = useAtom(authorizeAtom);
-  if (!settings || !authorize) return <Fragment />
+  const [loading,setLoading] = useAtom(loadingAtom);
+  if (!settings || !authorize || loading) return <Fragment />
 
   const { providers = [] } = settings;
-  const onLogin = (name: string) => () =>
-    document.location = `https://localhost:3002/api/login?provider=${name}`;
+  const onLogin = (name: string) => () => {
+    doLogin(name);
+    setLoading(true);
+  }
 
   return <>
     <ContinueBlock settings={settings} />
@@ -53,9 +56,7 @@ const LoginButtons : FC<LoginButtonsProps> = (props) => {
 
   return <Card className="login-block">
 
-    <div className="d-flex justify-content-center">
-      <Header auth={authorize} />
-    </div>
+    <Header auth={authorize} />
 
     <hr/>
 

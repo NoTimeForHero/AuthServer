@@ -27,12 +27,14 @@ const Header : FC<Props> = (props) => {
   const [settings] = useAtom(settingsAtom);
   const { brand = {} } = settings ?? {};
 
-  return <div>
-    {brand.logotype
-      ? <Image brand={brand} />
-      : <h3>{brand.name ?? "OAuth2 Server"}</h3>}
-    <AppBlock auth={props.auth} />
-  </div>;
+  return <div className="d-flex justify-content-center">
+    <div>
+      {brand.logotype
+        ? <Image brand={brand} />
+        : <h3>{brand.name ?? "OAuth2 Server"}</h3>}
+      <AppBlock auth={props.auth} />
+    </div>
+  </div>
 }
 
 export default Header;

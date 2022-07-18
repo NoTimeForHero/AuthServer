@@ -22,11 +22,11 @@ const App = () => {
   return <Container size={'xl'} className={"flex-center"}>
     <Router>
         <LoginButtons path="/authorize" />
+        <LoginButtons path="/complete" />
         <Information path="/info" />
-      {/* TODO: Нормальная страница по умолчанию */}
-        <Route path="/" component={() => <Card>
-          <StatusBar />
-          <h1 className="p-4">Under Construction!</h1>
+        <Route default component={() => <Card>
+          <h1 className="p-4">Ошибка 404:</h1>
+          <h2>Страница не найдена</h2>
         </Card>} />
     </Router>
   </Container>

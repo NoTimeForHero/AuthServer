@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,16 +21,16 @@ namespace AuthServer.Controllers
         }
 
         [HttpGet("api/login")]
-        public async Task<object> List(string provider)
+        public async Task<object> List(string provider, string redirect)
         {
             if (string.IsNullOrEmpty(provider)) return BadRequest(new { Message = "Missing provider!" });
+            if (string.IsNullOrEmpty(redirect)) return BadRequest(new { Message = "Missing redirect!" });
             var providers = await HttpContext.GetExternalProvidersAsync();
             var founded = providers.FirstOrDefault(x =>
                 string.Equals(x.Name, provider, StringComparison.CurrentCultureIgnoreCase));
             if (founded == null)
                 return BadRequest(new { Message = $"Unknown provider: {provider}"});
-            var redirectUri = "/";
-            return Challenge(new AuthenticationProperties { RedirectUri = redirectUri }, founded.Name);
+            return Challenge(new AuthenticationProperties { RedirectUri = redirect }, founded.Name);
         }
 
         // TODO: Написать юнит-тесты?
@@ -50,8 +51,11 @@ namespace AuthServer.Controllers
 
             return new
             {
-                Id = app,
-                Application = application.Title,
+                Application = new {
+                    Id = app,
+                    application.Title,
+                    application.BaseURL
+                },
                 Redirect = redirect
             };
         }
