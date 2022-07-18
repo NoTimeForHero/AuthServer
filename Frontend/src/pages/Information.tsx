@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'preact/compat';
-import Card from '../bootstrap/components/Card';
+import Card from '../components/bootstrap/Card';
 import { Claim } from '../types';
 import { fetchClaims} from '../api';
 import { atom, useAtom } from 'jotai';

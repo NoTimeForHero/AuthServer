@@ -1,8 +1,8 @@
 import LoginButtons from './LoginButtons';
-import Container from '../bootstrap/components/Container';
+import Container from '../components/bootstrap/Container';
 import { Route, Router } from 'preact-router';
 import Information from './Information';
-import Card from '../bootstrap/components/Card';
+import Card from '../components/bootstrap/Card';
 import { useAtom } from 'jotai';
 import { settingsAtom, useStatusBar } from '../api/store';
 import { useEffect } from 'preact/compat';

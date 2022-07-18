@@ -1,4 +1,4 @@
-import Card from '../bootstrap/components/Card';
+import Card from '../components/bootstrap/Card';
 import ProviderButton from '../components/ProviderButton';
 import { Companies } from '../companies';
 import { FC, Fragment } from 'preact/compat';

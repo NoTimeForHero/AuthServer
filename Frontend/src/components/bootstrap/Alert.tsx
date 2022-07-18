@@ -1,4 +1,4 @@
-import { format, SimpleProps, Theme } from '../types';
+import { format, SimpleProps, Theme } from './types';
 import { FC } from 'preact/compat';
 
 interface Props extends SimpleProps {

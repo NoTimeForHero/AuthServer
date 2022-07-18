@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { errorAtom, loadingAtom } from '../api/store';
 import { Fragment } from 'preact/compat';
-import Alert from '../bootstrap/components/Alert';
+import Alert from '../components/bootstrap/Alert';
 
 const StatusBar = () => {
   const [loading] = useAtom(loadingAtom);

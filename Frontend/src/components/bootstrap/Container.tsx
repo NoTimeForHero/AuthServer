@@ -1,5 +1,5 @@
 import { FC } from 'preact/compat';
-import { SimpleProps, format, Size } from '../types';
+import { SimpleProps, format, Size } from './types';
 
 
 interface ContainerProps extends SimpleProps {

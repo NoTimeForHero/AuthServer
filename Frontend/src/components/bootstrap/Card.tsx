@@ -1,5 +1,5 @@
 import { FC } from 'preact/compat';
-import { format, SimpleProps } from '../types';
+import { format, SimpleProps } from './types';
 
 interface CardProps extends SimpleProps {
   header?: JSX.Element|string
