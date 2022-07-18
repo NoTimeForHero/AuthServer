@@ -8,7 +8,7 @@ const StatusBar = () => {
   const [error] = useAtom(errorAtom);
   return <Fragment>
     {error && <Alert theme='danger'>
-        <strong>Ошибка:</strong>
+        <strong>Ошибка: </strong>
       {error?.message ?? error?.toString()}
     </Alert>}
     {loading && <Alert>Загрузка данных...</Alert>}

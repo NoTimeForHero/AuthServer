@@ -1,9 +1,27 @@
 import { Claim, Settings } from '../types';
 
 
-const get = <T,>(url: string) : Promise<T> => {
-  return fetch(url).then(x => x.json());
+const get = async <T,>(url: string) : Promise<T> => {
+  const data = await fetch(url);
+  if (!data.ok) throw await data.text();
+  return data.json();
 }
 
 export const fetchSettings = () => get<Settings>('/api/settings');
 export const fetchClaims = () : Promise<Record<string,Claim[]>> => get<any>('/api/info').then(x => x?.claims);
+
+export interface Authorize {
+  application: {
+    id: string,
+    title: string
+    baseURL: string
+  },
+  redirect: string
+}
+
+export const fetchAuthorize = (app: string, redirect?: string) => {
+  const params = new URLSearchParams();
+  params.set('app', app);
+  if (redirect) params.set('redirect', redirect);
+  return get<Authorize>(`/api/authorize?${params}`);
+}

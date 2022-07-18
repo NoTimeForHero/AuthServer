@@ -60,7 +60,7 @@ const Information : FC<InformationProps> = () => {
     {claims && <ShowClaim claims={claims} />}
 
     <div className="d-flex justify-content-center">
-      <div className="btn btn-primary px-4 py-2" onClick={onBack}>Назад?</div>
+      <div className="btn btn-primary px-4 py-2" onClick={onBack}>Назад</div>
     </div>
   </Card>
 }

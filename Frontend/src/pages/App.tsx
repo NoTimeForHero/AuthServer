@@ -5,15 +5,15 @@ import Information from './Information';
 import Card from '../components/bootstrap/Card';
 import { useAtom } from 'jotai';
 import { settingsAtom, useStatusBar } from '../api/store';
-import { useEffect } from 'preact/compat';
 import { fetchSettings } from '../api';
 import StatusBar from './StatusBar';
+import { useMount } from '../utils';
 
 
 const App = () => {
   const [settings,setSettings] = useAtom(settingsAtom);
   const { call } = useStatusBar();
-  useEffect(() => { call(fetchSettings).then(setSettings) }, []);
+  useMount(() => { call(fetchSettings).then(setSettings)});
 
   if (!settings) return (<Container size={'xl'} className={"flex-center"}>
     <StatusBar />

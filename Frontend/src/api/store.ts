@@ -1,6 +1,8 @@
 import { atom, useAtom } from 'jotai'
 import { Settings } from '../types';
+import { Authorize } from './index';
 
+export const authorizeAtom = atom<Authorize|undefined>(undefined);
 export const settingsAtom = atom<Settings|undefined>(undefined);
 export const loadingAtom = atom(false);
 export const errorAtom = atom<any>(undefined);
