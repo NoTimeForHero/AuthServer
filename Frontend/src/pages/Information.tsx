@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from 'preact/compat';
-import { activePageCtx } from '../context/ActivePage';
-import LoginButtons from './LoginButtons';
+import { useEffect, useState } from 'preact/compat';
 import Card from '../bootstrap/components/Card';
 import { Claim } from '../types';
 import Alert from '../bootstrap/components/Alert';
+import { fetchClaims } from '../api';
 
 export const formatValue = (input: string) : JSX.Element|string => {
   const byAnchor = input.split("#");
@@ -34,16 +33,16 @@ export const ShowClaim = ({claims} : {claims: Claim[]}) => {
   </table>
 }
 
-const Information = () => {
+interface InformationProps {
+  path?: string // Router
+}
 
-  const setActivePage = useContext(activePageCtx);
-  const onBack = () => setActivePage(<LoginButtons />);
+const Information = (props: InformationProps) => {
+  const onBack = () => history.go(-1);
   const [claims, setClaims] = useState<Claim[]>();
 
   const onLoad = async() => {
-    const entries : Record<string,Claim[]> = await fetch('/api/info')
-      .then(x => x.json())
-      .then(x => x?.claims);
+    const entries = await fetchClaims();
     // TODO: Показывать остальные вкладки?
     const claims = Object.values(entries)[0];
     setClaims(claims);

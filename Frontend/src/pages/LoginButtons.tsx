@@ -5,30 +5,32 @@ import { FC, Fragment, useContext } from 'preact/compat';
 import { globalSettingsCtx } from '../context/GlobalData';
 import Header from '../components/Header';
 import { Settings } from '../types';
-import { activePageCtx } from '../context/ActivePage';
-import Information from './Information';
+import { Link } from 'preact-router/match';
 
 const ContinueBlock : FC<{settings?: Settings}> = (props) => {
-  const setActivePage = useContext(activePageCtx);
   const { user } = props?.settings ?? {};
   if (!user) return <Fragment />
   const company = Companies[user.provider];
-  const onInfo = () => setActivePage(<Information />);
   return <>
     <div className="text-center fw-bold mb-2">Продолжить как:</div>
     <div className="d-flex m-2">
       <ProviderButton company={company} user={user} />
-      <div className="btn btn-sm btn-outline-info d-flex"
-           onClick={onInfo}
+      <Link className="btn btn-sm btn-outline-info d-flex"
+           href="/info"
            title="Информация о пользователе">
         <img src="/images/question-mark-svgrepo-com.svg" alt="?" width={32} />
-      </div>
+      </Link>
     </div>
     <hr />
   </>
 }
 
-const LoginButtons = () => {
+interface LoginButtonsProps {
+  path?: string // Router
+  matches?: Record<string,string>
+}
+
+const LoginButtons = (props: LoginButtonsProps) => {
   const settings = useContext(globalSettingsCtx);
   const { providers = [] } = settings ?? {};
 

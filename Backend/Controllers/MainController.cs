@@ -28,14 +28,15 @@ namespace AuthServer.Controllers
                 string.Equals(x.Name, provider, StringComparison.CurrentCultureIgnoreCase));
             if (founded == null)
                 return BadRequest(new { Message = $"Unknown provider: {provider}"});
-            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, founded.Name);
+            var redirectUri = "/";
+            return Challenge(new AuthenticationProperties { RedirectUri = redirectUri }, founded.Name);
         }
 
         // TODO: Написать юнит-тесты?
-        [HttpGet("authorize")]
-        public async Task<object> TryAuthorize(string? app, string? redirect = null)
+        [HttpGet("api/authorize")]
+        public object TryAuthorize(string? app, string? redirect = null)
         {
-
+ 
             if (app == null) return NotFound(new { Message = "Missing application ID!" });
             if (!config.Applications.TryGetValue(app, out var application))
             {
@@ -49,6 +50,7 @@ namespace AuthServer.Controllers
 
             return new
             {
+                Id = app,
                 Application = application.Title,
                 Redirect = redirect
             };

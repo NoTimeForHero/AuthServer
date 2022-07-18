@@ -1,17 +1,21 @@
 import LoginButtons from './LoginButtons';
 import Container from '../bootstrap/components/Container';
 import { LoadWrapper } from '../context/GlobalData';
-import { useState } from 'preact/compat';
-import { activePageCtx } from '../context/ActivePage';
+import {Router, Route} from 'preact-router';
+import Information from './Information';
+import Card from '../bootstrap/components/Card';
 
 const App = () => {
-
-  const [page, setActivePage] = useState<JSX.Element>(<LoginButtons />);
   return <Container size={'xl'} className={"flex-center"}>
     <LoadWrapper>
-      <activePageCtx.Provider value={setActivePage}>
-        {page}
-      </activePageCtx.Provider>
+      <Router>
+        <LoginButtons path="/authorize" />
+        <Information path="/info" />
+        {/* TODO: Нормальная страница по умолчанию */}
+        <Route path="/" component={() => <Card>
+          <h1 className="p-4">Under Construction!</h1>
+        </Card>} />
+      </Router>
     </LoadWrapper>
   </Container>
 }
