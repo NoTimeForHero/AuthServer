@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Web;
+using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,6 @@ namespace AuthServer.Controllers
         [HttpGet("api/authorize")]
         public object TryAuthorize(string? app, string? redirect = null)
         {
- 
             if (app == null) return NotFound(new { Message = "Missing application ID!" });
             if (!config.Applications.TryGetValue(app, out var application))
             {

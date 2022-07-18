@@ -1,8 +1,10 @@
 import { Claim, Settings } from '../types';
+import { wait } from '../utils';
 
 
 const get = async <T,>(url: string) : Promise<T> => {
   const data = await fetch(url);
+  // await wait(2400);
   if (!data.ok) throw await data.text();
   return data.json();
 }

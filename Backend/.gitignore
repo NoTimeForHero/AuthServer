@@ -5,6 +5,7 @@
 
 ## NoTimeForHero ignore:
 /settings
+/wwwroot
 
 # User-specific files
 *.rsuser

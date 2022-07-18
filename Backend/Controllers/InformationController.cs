@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AuthServer.Utils;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.Controllers
 {
@@ -12,7 +13,7 @@ namespace AuthServer.Controllers
         }
 
         [HttpGet("api/settings")]
-        public async Task<object> ListProviders()
+        public async Task<object> Settings()
         {
             var providers =
                 (await HttpContext.GetExternalProvidersAsync())
@@ -36,6 +37,7 @@ namespace AuthServer.Controllers
                 .GroupBy(x => x.Subject)
                 .ToDictionary(x => x.Key, x => x.ToList());
             var user = User.GetInformation();
+            HttpContext.Response.StatusCode = 404;
             return new { claims, user };
         }
     }

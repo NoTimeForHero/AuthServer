@@ -2,6 +2,7 @@ using System.Dynamic;
 using System.Text;
 using AspNet.Security.OAuth.MailRu;
 using AuthServer;
+using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-var config = Utils.Deserialize<Config>(File.ReadAllText("settings/main.yml"));
+var config = StaticSerializer.Deserialize<Config>(File.ReadAllText("settings/main.yml"));
 
 // Add services to the container.
 var services = builder.Services;
@@ -67,6 +68,7 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseMiddleware<SpaMiddleware>(Constants.IndexFile);
 app.MapControllers();
 
 app.Run();

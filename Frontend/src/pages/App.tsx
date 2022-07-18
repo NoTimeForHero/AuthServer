@@ -8,12 +8,17 @@ import { settingsAtom, useStatusBar } from '../api/store';
 import { fetchSettings } from '../api';
 import StatusBar from './StatusBar';
 import { useMount } from '../utils';
+import { usePreloader } from '../api/preloader';
 
 
 const App = () => {
+  const {hasSettings} = usePreloader();
   const [settings,setSettings] = useAtom(settingsAtom);
   const { call } = useStatusBar();
-  useMount(() => { call(fetchSettings).then(setSettings)});
+  useMount(async () => {
+    if (hasSettings || settings) return;
+    setSettings(await call(fetchSettings));
+  });
 
   if (!settings) return (<Container size={'xl'} className={"flex-center"}>
     <StatusBar />
