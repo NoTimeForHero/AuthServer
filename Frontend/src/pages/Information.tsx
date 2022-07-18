@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'preact/compat';
+import { FC, useEffect } from 'preact/compat';
 import Card from '../bootstrap/components/Card';
 import { Claim } from '../types';
-import Alert from '../bootstrap/components/Alert';
-import { fetchClaims } from '../api';
+import { fetchClaims} from '../api';
+import { atom, useAtom } from 'jotai';
+import { useStatusBar } from '../api/store';
+import StatusBar from './StatusBar';
 
 export const formatValue = (input: string) : JSX.Element|string => {
   const byAnchor = input.split("#");
@@ -37,22 +39,24 @@ interface InformationProps {
   path?: string // Router
 }
 
-const Information = (props: InformationProps) => {
+const claimsAtom = atom<Claim[]|undefined>(undefined);
+
+const Information : FC<InformationProps> = () => {
   const onBack = () => history.go(-1);
-  const [claims, setClaims] = useState<Claim[]>();
+  const [claims, setClaims] = useAtom(claimsAtom);
+  const { call } = useStatusBar();
 
   const onLoad = async() => {
-    const entries = await fetchClaims();
+    if (claims) return;
+    const entries = await call(fetchClaims);
     // TODO: Показывать остальные вкладки?
-    const claims = Object.values(entries)[0];
-    setClaims(claims);
+    const newClaims = Object.values(entries)[0];
+    setClaims(newClaims);
   };
   useEffect(() => { onLoad() }, []);
 
   return <Card header="Информация о пользователе">
-
-    {!claims && <Alert theme={'info'}>Загрузка...</Alert>}
-
+    <StatusBar />
     {claims && <ShowClaim claims={claims} />}
 
     <div className="d-flex justify-content-center">

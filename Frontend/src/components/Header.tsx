@@ -1,8 +1,8 @@
-import { useContext } from 'preact/compat';
-import { globalSettingsCtx } from '../context/GlobalData';
+import { useAtom } from 'jotai';
+import { settingsAtom } from '../api/store';
 
 const Header = () => {
-  const settings = useContext(globalSettingsCtx);
+  const [settings] = useAtom(settingsAtom);
   const { brand = {} } = settings ?? {};
 
   if (brand.logotype) {

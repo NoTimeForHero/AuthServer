@@ -1,11 +1,13 @@
 import Card from '../bootstrap/components/Card';
 import ProviderButton from '../components/ProviderButton';
 import { Companies } from '../companies';
-import { FC, Fragment, useContext } from 'preact/compat';
-import { globalSettingsCtx } from '../context/GlobalData';
+import { FC, Fragment } from 'preact/compat';
 import Header from '../components/Header';
 import { Settings } from '../types';
 import { Link } from 'preact-router/match';
+import { useAtom } from 'jotai';
+import { settingsAtom } from '../api/store';
+import StatusBar from './StatusBar';
 
 const ContinueBlock : FC<{settings?: Settings}> = (props) => {
   const { user } = props?.settings ?? {};
@@ -30,14 +32,16 @@ interface LoginButtonsProps {
   matches?: Record<string,string>
 }
 
-const LoginButtons = (props: LoginButtonsProps) => {
-  const settings = useContext(globalSettingsCtx);
+const LoginButtons : FC<LoginButtonsProps> = () => {
+  const [settings] = useAtom(settingsAtom);
   const { providers = [] } = settings ?? {};
 
   const onLogin = (name: string) => () =>
     document.location = `https://localhost:3002/api/login?provider=${name}`;
 
   return <Card className="login-block">
+
+    <StatusBar />
 
     <div className="d-flex justify-content-center">
       <Header />
