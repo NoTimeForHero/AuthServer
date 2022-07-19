@@ -37,7 +37,6 @@ namespace AuthServer.Controllers
                 .GroupBy(x => x.Subject)
                 .ToDictionary(x => x.Key, x => x.ToList());
             var user = User.GetInformation();
-            HttpContext.Response.StatusCode = 404;
             return new { claims, user };
         }
     }
