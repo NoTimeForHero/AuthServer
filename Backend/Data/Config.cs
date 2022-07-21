@@ -13,6 +13,23 @@ namespace AuthServer
         public Dictionary<string, User> Users { get; set; } = new();
         public Dictionary<string, HashSet<string>> Groups { get; set; } = new();
         public Dictionary<string, Application> Applications { get; set; } = new();
+        public TokenSettings Token { get; set; } = new();
+    }
+
+    public class TokenSettings
+    {
+        public AlgType Algorithm { get; set; }
+        public string? Secret { get; set; }
+        public string? SecretFile { get; set; }
+        public string? Issuer { get; set; }
+        public string? Audience { get; set; }
+        public TimeSpan TTL { get; set; }
+
+        public enum AlgType
+        {
+            HS256, HS384, HS512,
+            RS256, RS384, RS512,
+        }
     }
 
     public class Application

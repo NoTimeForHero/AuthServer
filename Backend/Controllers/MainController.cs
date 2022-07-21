@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Web;
 using AuthServer.Data;
+using AuthServer.Services;
 using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +12,13 @@ namespace AuthServer.Controllers
     {
         private Config config;
         private AccessService access;
+        private TokenService tokenService;
 
-        public MainController(Config config, AccessService access)
+        public MainController(Config config, AccessService access, TokenService tokenService)
         {
             this.config = config;
             this.access = access;
-        }
-
-        public object Get()
-        {
-            return new { Message = "Hello world!" };
+            this.tokenService = tokenService;
         }
 
         [HttpGet("api/login")]
@@ -65,11 +63,11 @@ namespace AuthServer.Controllers
             if (user == null) return this.ServerError("Cannot get login info!");
 
             if (!access.HasAccess(model.Application, user))
-                return this.Forbid(new { Message = "No login info!" });
+                return this.Forbid(new { Message = "Access denied for this user ID!", Details = new {user.Id}});
 
-            // application.Access
-
-            return null;
+            var token = tokenService.Generate(user);
+            redirect = string.Format(model.Redirect, token);
+            return new { redirect, token };
         }
 
 

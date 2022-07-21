@@ -1,5 +1,6 @@
 using AuthServer;
 using AuthServer.Data;
+using AuthServer.Services;
 using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -11,6 +12,7 @@ var services = builder.Services;
 
 services.AddSingleton(config);
 services.AddSingleton<AccessService>();
+services.AddSingleton<TokenService>();
 services.AddRouting();
 
 var auth = services.AddAuthentication((options) =>

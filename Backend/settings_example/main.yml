@@ -5,6 +5,11 @@ Brand:
   Size:
     X: 300
     Y: 150
+Token:
+  Algorithm: HS512 # Allowed: HS[256/384/512], RS[256/384/512]
+  Secret: asdv234234^&%&^%&^hjsdfb2%%% # HMAC-SHA algorithms
+  SecretFile: settings/privatekey.pem # RSA algorithms in PEM format (which starts with ----BEGIN PRIVATE KEY---)
+  TTL: 01:00:00 # Expiration time in TimeSpan.Parse format
 Providers:
   GitHub:
     ClientId: github_app_id
