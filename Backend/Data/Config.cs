@@ -22,7 +22,6 @@ namespace AuthServer
         public string? Secret { get; set; }
         public string? SecretFile { get; set; }
         public string? Issuer { get; set; }
-        public string? Audience { get; set; }
         public TimeSpan TTL { get; set; }
 
         public enum AlgType
@@ -38,6 +37,7 @@ namespace AuthServer
         public string BaseURL { get; set; }
         public HashSet<string> RedirectURLS { get; set; } = new();
         public HashSet<string> Access { get; set; } = new();
+        public string? Audience { get; set; }
 
         public IEnumerable<string> AccessUsers => Access.Where(x => !x.StartsWith(Constants.GroupPrefix));
         public IEnumerable<string> AccessGroups => Access

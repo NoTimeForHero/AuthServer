@@ -65,7 +65,7 @@ namespace AuthServer.Controllers
             if (!access.HasAccess(model.Application, user))
                 return this.Forbid(new { Message = "Access denied for this user ID!", Details = new {user.Id}});
 
-            var token = tokenService.Generate(user);
+            var token = tokenService.Generate(model.Application, user);
             redirect = string.Format(model.Redirect, token);
             return new { redirect, token };
         }

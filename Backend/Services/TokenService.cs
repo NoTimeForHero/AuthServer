@@ -17,7 +17,7 @@ namespace AuthServer.Services
             this.config = config.Token;
         }
 
-        public object Generate(AuthUserInfo user)
+        public object Generate(Application application, AuthUserInfo user)
         {
             var descriptor = new SecurityTokenDescriptor
             {
@@ -29,10 +29,10 @@ namespace AuthServer.Services
                     new("raw:userId", user.Id)
                 }),
                 Expires = DateTime.UtcNow.Add(config.TTL),
-                SigningCredentials = SigninManager.GetSigningCredentials(config)
+                SigningCredentials = SigninManager.GetSigningCredentials(config),
+                Audience = application.Audience ?? application.BaseURL
             };
             if (config.Issuer != null) descriptor.Issuer = config.Issuer;
-            if (config.Audience != null) descriptor.Audience = config.Audience;
             var handler = new JwtSecurityTokenHandler();
             var token = handler.CreateToken(descriptor);
             var result = handler.WriteToken(token);
