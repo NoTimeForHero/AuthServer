@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "AuthServer.csproj", "{6A108547-E19A-43FB-A369-85D1E369A570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTests", "..\BackendTests\BackendTests.csproj", "{178EEF7A-9660-46EB-A10F-07423C96CC3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6A108547-E19A-43FB-A369-85D1E369A570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A108547-E19A-43FB-A369-85D1E369A570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A108547-E19A-43FB-A369-85D1E369A570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178EEF7A-9660-46EB-A10F-07423C96CC3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178EEF7A-9660-46EB-A10F-07423C96CC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178EEF7A-9660-46EB-A10F-07423C96CC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178EEF7A-9660-46EB-A10F-07423C96CC3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

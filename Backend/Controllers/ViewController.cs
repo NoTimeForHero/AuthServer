@@ -14,7 +14,7 @@ namespace AuthServer.Controllers
         public ViewController(Config config)
         {
             ctrlInfo = new InformationController(config);
-            ctrlMain = new MainController(config);
+            ctrlMain = new MainController(config, null);
         }
 
         [HttpGet("/authorize")]

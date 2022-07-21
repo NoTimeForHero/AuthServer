@@ -1,4 +1,5 @@
-﻿using AuthServer.Utils;
+﻿using AuthServer.Data;
+using AuthServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.Controllers
@@ -18,7 +19,7 @@ namespace AuthServer.Controllers
             var providers =
                 (await HttpContext.GetExternalProvidersAsync())
                 .Select(x => x.DisplayName);
-            var user = User.GetInformation();
+            var user = AuthUserInfo.Get(User);
             var brand = config.Brand;
             return new { brand, user, providers };
         }
@@ -36,7 +37,7 @@ namespace AuthServer.Controllers
                 })
                 .GroupBy(x => x.Subject)
                 .ToDictionary(x => x.Key, x => x.ToList());
-            var user = User.GetInformation();
+            var user = AuthUserInfo.Get(User);
             return new { claims, user };
         }
     }

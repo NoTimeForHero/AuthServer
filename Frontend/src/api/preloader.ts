@@ -22,7 +22,7 @@ export const usePreloader = () => {
   console.log('PRELOAD DATA', preload);
   if (!preload) return { hasSettings: false }
 
-  useAtom(settingsAtom)[1](preload.settings);
+  TryUse(settingsAtom, preload.settings);
   TryUse(errorAtom, preload.error);
   TryUse(authorizeAtom, preload.auth);
 

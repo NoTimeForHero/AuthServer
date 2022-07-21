@@ -8,24 +8,29 @@ namespace AuthServer
     public class Config
     {
         public Brand Brand { get; set; }
-        public Dictionary<string, OAuthOptions> Providers { get; set; }
-        public Dictionary<string, User> Users { get; set; }
-        public Dictionary<string, HashSet<string>> Groups { get; set; }
-        public Dictionary<string, Application> Applications { get; set; }
+        public Dictionary<string, OAuthOptions> Providers { get; set; } = new();
+        public Dictionary<string, User> Users { get; set; } = new();
+        public Dictionary<string, HashSet<string>> Groups { get; set; } = new();
+        public Dictionary<string, Application> Applications { get; set; } = new();
     }
 
     public class Application
     {
         public string Title { get; set; }
         public string BaseURL { get; set; }
-        public HashSet<string> RedirectURLS { get; set; }
-        public HashSet<string> Access { get; set; }
+        public HashSet<string> RedirectURLS { get; set; } = new();
+        public HashSet<string> Access { get; set; } = new();
     }
 
     public class User
     {
         public string DisplayName { get; set; }
-        public Dictionary<string, HashSet<string>> Providers { get; set; }
+        public Dictionary<string, HashSet<string>> Providers { get; set; } = new();
+
+        public static IEnumerable<(string provider, string id)> FlattenProviders(User user) =>
+            user.Providers.SelectMany(pair =>
+                pair.Value.Select(id => (pair.Key, id)).ToList()
+            );
     }
 
     public class Brand

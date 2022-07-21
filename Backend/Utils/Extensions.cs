@@ -8,6 +8,7 @@ using System.Security.Claims;
 using AuthServer.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.Utils;
 
@@ -37,17 +38,5 @@ public static class Extensions
         return (from scheme in await schemes.GetAllSchemesAsync()
             where !string.IsNullOrEmpty(scheme.DisplayName)
             select scheme).ToArray();
-    }
-
-    public static AuthUserInfo? GetInformation(this ClaimsPrincipal claimsPrincipal)
-    {
-        var idType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
-        var nameType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
-        var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == idType);
-        if (claim == null) return null;
-        var provider = claim.Subject?.AuthenticationType;
-        if (provider == null) return null;
-        var name = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == nameType)?.Value;
-        return new AuthUserInfo { Provider = provider, Id = claim.Value, DisplayName = name };
     }
 }
