@@ -17,9 +17,8 @@ interface LoginButtonsProps {
 
 const Body = () => {
   const [settings] = useAtom(settingsAtom);
-  const [authorize] = useAtom(authorizeAtom);
   const [loading,setLoading] = useAtom(loadingAtom);
-  if (!settings || !authorize || loading) return <Fragment />
+  if (!settings || loading) return <Fragment />
 
   const { providers = [] } = settings;
   const onLogin = (name: string) => () => {
@@ -28,7 +27,7 @@ const Body = () => {
   }
 
   return <>
-    <ContinueBlock settings={settings} />
+    <ContinueBlock {...{settings}} />
 
     <div className="social-buttons-group">
       {providers.map((name) =>

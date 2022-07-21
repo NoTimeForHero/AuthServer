@@ -1,9 +1,10 @@
 import { Claim, Settings } from '../types';
-import { wait } from '../utils';
+import { buildURL, wait } from '../utils';
 
 
-const get = async <T,>(url: string) : Promise<T> => {
-  const data = await fetch(url);
+const get = async <T,>(url: string, params?: Record<string,string|undefined>) : Promise<T> => {
+  const finalUrl = buildURL(url, params);
+  const data = await fetch(finalUrl);
   // await wait(2400);
   if (!data.ok) throw await data.text();
   return data.json();
@@ -21,12 +22,11 @@ export interface Authorize {
   redirect: string
 }
 
-export const fetchAuthorize = (app: string, redirect?: string) => {
-  const params = new URLSearchParams();
-  params.set('app', app);
-  if (redirect) params.set('redirect', redirect);
-  return get<Authorize>(`/api/authorize?${params}`);
-}
+export const fetchAuthorize = (app: string, redirect?: string) =>
+  get<Authorize>(`/api/authorize`, {app, redirect});
+
+export const fetchAccess = (app: string, redirect?: string) =>
+  get<{redirect: string, token: string}>(`/api/access`, {app, redirect});
 
 export const doLogin = (provider: string) => {
   const redirect = encodeURIComponent(document.location.toString());
