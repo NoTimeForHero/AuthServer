@@ -25,7 +25,14 @@ namespace AuthServer.Data
             var info = (auth.Provider, auth.Id);
             if (!UserByLoginInfo.TryGetValue(info, out var userId)) return false;
 
-            if (application.Access.Contains(userId)) return true;
+            if (application.AccessUsers.Contains(userId)) return true;
+
+            var usersInGroups = application.AccessGroups
+                .Where(groupName => config.Groups.ContainsKey(groupName))
+                .SelectMany(name => config.Groups[name])
+                .ToHashSet();
+
+            if (usersInGroups.Contains(userId)) return true;
 
             return false;
         }

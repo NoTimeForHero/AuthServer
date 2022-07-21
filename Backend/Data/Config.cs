@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
 #pragma warning disable CS8618
@@ -20,6 +21,11 @@ namespace AuthServer
         public string BaseURL { get; set; }
         public HashSet<string> RedirectURLS { get; set; } = new();
         public HashSet<string> Access { get; set; } = new();
+
+        public IEnumerable<string> AccessUsers => Access.Where(x => !x.StartsWith(Constants.GroupPrefix));
+        public IEnumerable<string> AccessGroups => Access
+            .Where(x => x.StartsWith(Constants.GroupPrefix))
+            .Select(x => x.Replace(Constants.GroupPrefix, ""));
     }
 
     public class User

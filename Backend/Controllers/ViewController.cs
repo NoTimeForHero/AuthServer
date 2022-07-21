@@ -11,10 +11,10 @@ namespace AuthServer.Controllers
         InformationController ctrlInfo;
         MainController ctrlMain;
 
-        public ViewController(Config config)
+        public ViewController(IServiceProvider provider)
         {
-            ctrlInfo = new InformationController(config);
-            ctrlMain = new MainController(config, null);
+            ctrlInfo = ActivatorUtilities.CreateInstance<InformationController>(provider);
+            ctrlMain = ActivatorUtilities.CreateInstance<MainController>(provider);
         }
 
         [HttpGet("/authorize")]
