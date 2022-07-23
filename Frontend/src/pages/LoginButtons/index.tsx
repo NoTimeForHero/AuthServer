@@ -18,7 +18,8 @@ interface LoginButtonsProps {
 const Body = () => {
   const [settings] = useAtom(settingsAtom);
   const [loading,setLoading] = useAtom(loadingAtom);
-  if (!settings || loading) return <Fragment />
+  const [authorize] = useAtom(authorizeAtom);
+  if (!settings || !authorize || loading) return <Fragment />
 
   const { providers = [] } = settings;
   const onLogin = (name: string) => () => {
