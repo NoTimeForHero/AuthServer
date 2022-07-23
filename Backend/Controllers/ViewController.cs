@@ -26,8 +26,7 @@ namespace AuthServer.Controllers
             index.Add("settings", await ctrlInfo.Settings());
 
             var authorize = ctrlMain.TryAuthorize(app, redirect);
-            if (authorize is NotFoundObjectResult notFound && notFound.Value != null)
-                index.Add("error", notFound.Value);
+            if (!(authorize is SuccessResult)) index.Add("error", authorize);
             else index.Add("auth", authorize);
 
             await index.Write(Response);

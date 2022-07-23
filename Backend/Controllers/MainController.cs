@@ -36,12 +36,12 @@ namespace AuthServer.Controllers
 
         // TODO: Написать юнит-тесты?
         [HttpGet("api/authorize")]
-        public object TryAuthorize(string? app, string? redirect = null)
+        public ObjectResult TryAuthorize(string? app, string? redirect = null)
         {
             var model = new AuthModel(config, app, redirect);
             if (model.Error != null) return model.Error;
             var application = model.Application;
-            return new
+            return this.Success(new
             {
                 Application = new {
                     Id = app,
@@ -49,7 +49,7 @@ namespace AuthServer.Controllers
                     application.BaseURL
                 },
                 model.Redirect
-            };
+            });
         }
 
         [HttpGet("api/access")]

@@ -1,13 +1,22 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.Utils
 {
     public class IndexFile
     {
-        private readonly Dictionary<string, object> jsonObjects = new();
+        private readonly Dictionary<string, object?> jsonObjects = new();
         private readonly string filename = Constants.IndexFile;
 
-        public void Add(string name, object value) => jsonObjects.Add(name, value);
+        public void Add(string name, object? value)
+        {
+            if (value is ObjectResult objResult)
+            {
+                jsonObjects.Add(name, objResult.Value);
+                return;
+            }
+            jsonObjects.Add(name, value);
+        }
 
         private string BuildText(string text)
         {

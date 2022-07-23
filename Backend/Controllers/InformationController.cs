@@ -21,7 +21,7 @@ namespace AuthServer.Controllers
                 .Select(x => x.DisplayName);
             var user = AuthUserInfo.Get(User);
             var brand = config.Brand;
-            return new { brand, user, providers };
+            return this.Success(new { brand, user, providers });
         }
 
         [HttpGet("api/info")]
