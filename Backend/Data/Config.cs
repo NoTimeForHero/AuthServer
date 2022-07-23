@@ -1,7 +1,12 @@
 ﻿using System.Dynamic;
+using System.Net;
 using AuthServer.Utils;
+using AuthServer.Utils.Converters;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.HttpOverrides;
+using YamlDotNet.Serialization;
+
 #pragma warning disable CS8618
 
 namespace AuthServer
@@ -9,11 +14,26 @@ namespace AuthServer
     public class Config
     {
         public Brand Brand { get; set; }
+        public NetworkSettings Network { get; set; } = new();
         public Dictionary<string, OAuthOptions> Providers { get; set; } = new();
         public Dictionary<string, User> Users { get; set; } = new();
         public Dictionary<string, HashSet<string>> Groups { get; set; } = new();
         public Dictionary<string, Application> Applications { get; set; } = new();
         public TokenSettings Token { get; set; } = new();
+    }
+
+    public class NetworkSettings
+    {
+        public bool UseForwarding { get; set; }
+        public int? ForwardLimit { get; set; }
+
+        [YamlMember(Alias = "KnownNetworks")]
+        public List<string> _networksRaw { get; set; } = new();
+        public List<IPNetwork> KnownNetworks => _networksRaw.Select(IPNetworkConverter.Deserialize).ToList();
+
+        [YamlMember(Alias = "KnownProxies")]
+        public List<string> _proxiesRaw { get; set; } = new();
+        public List<IPAddress> KnownProxies => _proxiesRaw.Select(IPAddressConverter.Deserialize).ToList();
     }
 
     public class TokenSettings

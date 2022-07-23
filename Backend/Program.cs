@@ -1,8 +1,10 @@
+using System.Net;
 using AuthServer;
 using AuthServer.Data;
 using AuthServer.Services;
 using AuthServer.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = StaticSerializer.Deserialize<Config>(File.ReadAllText("settings/main.yml"));
@@ -14,6 +16,19 @@ services.AddSingleton(config);
 services.AddSingleton<AccessService>();
 services.AddSingleton<TokenService>();
 services.AddRouting();
+
+services.Configure<ForwardedHeadersOptions>(options =>
+{
+    if (!config.Network.UseForwarding) return;
+    options.ForwardedHeaders = ForwardedHeaders.All;
+    options.RequireHeaderSymmetry = false;
+    options.ForwardLimit = config.Network.ForwardLimit;
+    var networks = config.Network.KnownNetworks;
+    var proxies = config.Network.KnownProxies;
+    networks.ForEach(options.KnownNetworks.Add);
+    proxies.ForEach(options.KnownProxies.Add);
+});
+
 
 var auth = services.AddAuthentication((options) =>
 {
@@ -59,7 +74,13 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-app.UseHttpsRedirection();
+if (config.Network.UseForwarding)
+{
+    app.Logger.LogInformation("ForwardingHeaders Enabled!");
+    app.UseForwardedHeaders();
+}
+
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthentication();
